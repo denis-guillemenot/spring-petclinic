@@ -99,12 +99,14 @@ pipeline {
             }
         }
 
- stage('Analysis with SonarQube') {
+ stage('Analysis with SonarQube / localMaven') {
             steps {
                 echo 'Run sonarQube Analysis'
-                withSonarQubeEnv(installationName : 'sonarServer' , credentialsId : 'cred4sonar') 
+                // withSonarQubeEnv(installationName : 'sonarServer' , credentialsId : 'cred4sonar') 
+                withMaven( maven: 'localMAVEN')  
                 {
-                    sh "mvn clean package sonar:sonar"
+                    // sh "mvn clean package sonar:sonar"
+                    sh "mvn clean package"
                     }
             }
         }
